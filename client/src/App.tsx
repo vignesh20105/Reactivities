@@ -4,13 +4,15 @@ import { useEffect, useState } from "react"
 
 function App() {
   const [activities,setActivities] = useState<Activity[]>([])
-  useEffect(() => {
+  const fun=  () => {
     axios.get<Activity[]>('http://localhost:5202/api/activities')
     .then(response => setActivities(response.data))
     
 
     return () => {}
-  }, [])
+  }
+
+  useEffect(fun , [])
   return (
     <>
        <Typography variant="h3">Reactivities</Typography>
