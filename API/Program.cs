@@ -3,6 +3,7 @@ using Application.Core;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 var builder = WebApplication.CreateBuilder(args);
+Console.WriteLine(args.Length);
 
 // Add services to the container.
 

@@ -1,4 +1,5 @@
 type Activity = {
+    length: any
     id: string
     title: string
     date: string
