@@ -1,21 +1,24 @@
 import { Box, Container, CssBaseline } from "@mui/material"
 import axios from "axios"
-import {  useEffect, useState } from "react"
+import {  useState } from "react"
 import NavBar from "./NavBar"
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard"
 
 function App() {
-  const [activities,setActivities] = useState<Activity[]>([])
+  
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined)
   const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-  axios.get<Activity[]>('http://localhost:5202/api/activities')
-    .then(response => setActivities(response.data))
-}, [])
+ const { data: activities, isPending} = useQuery({
+            queryKey: ['activities'],
+            queryFn: async () => {
+              const response = await axios.get<Activity[]>('http://localhost:5000/api/activities');
+              return response.data;
+            }
+ })
 
  const handleSelectActivity = (id: string) => {
-  setSelectedActivity(activities.find(x => x.id === id))
+  setSelectedActivity(activities!.find(x => x.id === id))
  }
 
  const handleCancelSelectActivity = () => {
@@ -73,3 +76,11 @@ const handleSubmitForm = (activity: Activity) => {
 }
 
 export default App
+function useQuery(arg0: { keyQuery: string[]; queryFn: () => Promise<Activity[]> }) {
+  throw new Error("Function not implemented.")
+}
+
+function setActivities(arg0: any) {
+  throw new Error("Function not implemented.")
+}
+
